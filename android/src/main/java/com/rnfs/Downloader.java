@@ -99,9 +99,10 @@ public class Downloader extends AsyncTask<DownloadParams, int[], DownloadResult>
           headersFlat.put(headerKey, valueKey);
         }
       }
-
+  
+      res.statusCode = statusCode;
       mParam.onDownloadBegin.onDownloadBegin(statusCode, lengthOfFile, headersFlat);
-
+  
       input = new BufferedInputStream(connection.getInputStream(), 8 * 1024);
       output = new FileOutputStream(param.dest);
 
@@ -131,7 +132,6 @@ public class Downloader extends AsyncTask<DownloadParams, int[], DownloadResult>
 
       output.flush();
 
-      res.statusCode = statusCode;
       res.bytesWritten = total;
     } finally {
       if (output != null) output.close();
